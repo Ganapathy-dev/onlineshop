@@ -1,0 +1,14 @@
+amqp==2.6.1
+asgiref==3.8.1
+babel==2.16.0
+billiard==3.6.4.0
+celery==4.4.2
+Django==3.0.14
+flower==0.9.3
+kombu==4.6.11
+pillow==11.0.0
+pytz==2024.2
+sqlparse==0.5.1
+tornado==5.1.1
+typing_extensions==4.12.2
+vine==1.3.0
