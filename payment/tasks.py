@@ -14,7 +14,7 @@ def payment_completed(order_id):
     order=Order.objects.get(id=order_id)
     subject=f'My Shop - EE Invoice No {order.id}'
     message='please find attached the invoice for your recent purchase.'
-    email=EmailMessage(subject,message,'admin@gmail.com',[order.email])
+    email=EmailMessage(subject,message,'ganapathy@testpress.in',[order.email])
     html=render_to_string('orders/order/pdf.html',{'order':order})
     out=BytesIO()
     stylesheets=[weasyprint.CSS(settings.STATIC_ROOT+'css/pdf.css')]

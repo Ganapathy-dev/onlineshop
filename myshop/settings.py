@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from django.utils.translation import gettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -40,12 +40,17 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
-    'payment.apps.PaymentConfig'
+    'payment.apps.PaymentConfig',
+    'coupons.apps.CouponsConfig',
+    'rosetta',
+    'parler',
+    'localflavor',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -110,6 +115,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+LANGUAGES=(('en',_('English')),
+           ('es',_('Spanish')),
+           )
+
 TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
@@ -117,6 +126,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+LOCALE_PATHS=(
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -130,7 +144,12 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
 
 CART_SESSION_ID='cart'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER='ganapathy@testpress.in'
+EMAIL_HOST_PASSWORD='* * * * * *' #haei obaf uhom dkjc
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
 
 BRAINTREE_MERCHANT_ID='bj7n9rff5mqyyybs'
 BRAINTREE_PUBLIC_KEY='w6d5n793xvwsqgn2'
@@ -145,3 +164,19 @@ BRAINTREE_CONF=braintree.Configuration(
     BRAINTREE_PRIVATE_KEY
 )
 
+
+PARLER_LANGUAGES={
+    None:(
+        {'code':'en'},
+        {'code':'es'},
+    ),
+    'default':{
+        'fallback':'en',
+        'hide_untranslatd':False,
+    }
+}
+
+
+REDIS_HOST='localhost'
+REDIS_PORT='6379'
+REDIS_DB=1
